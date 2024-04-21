@@ -1,14 +1,14 @@
 from src.product import Product
 
 
-def test_product_init(one_product):
-    assert one_product.name == "55 QLED 4K"
-    assert one_product.description == "Фоновая подсветка"
-    assert one_product.price == 123000.0
-    assert one_product.quantity == 7
+def test_product_init(first_product):
+    assert first_product.name == "55 QLED 4K"
+    assert first_product.description == "Фоновая подсветка"
+    assert first_product.price == 123000.0
+    assert first_product.quantity == 7
 
 
-def test_new_product(product_test):
+def test_product_new_product(product_test):
     new_product = Product.new_product(product_test)
     assert new_product.name == 'New Product'
     assert new_product.description == 'New Description'
@@ -16,12 +16,20 @@ def test_new_product(product_test):
     assert new_product.quantity == 5
 
 
-def test_price_property(one_product):
-    assert one_product.price == 123000.0
+def test_product_price_property(first_product):
+    assert first_product.price == 123000.0
 
 
-def test_price_setter(one_product):
-    one_product.price = 80_000
-    assert one_product.price == 80_000
-    one_product.price = -80_000
-    assert one_product.price == 80_000
+def test_product_price_setter(first_product):
+    first_product.price = 80_000
+    assert first_product.price == 80_000
+    first_product.price = -80_000
+    assert first_product.price == 80_000
+
+
+def test_product_str(first_product):
+    assert str(first_product) == "55 QLED 4K, 123000.0 руб. Остаток: 7 шт."
+
+
+def test_product_add(first_product, second_product):
+    assert first_product + second_product == 871_000

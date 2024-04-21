@@ -12,6 +12,14 @@ class Product:
         self.__price = price
         self.quantity = quantity
 
+    def __str__(self):
+        """ Метод реализует строковое отображение """
+        return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        """ Метод сложения общей стоимости двух продуктов"""
+        return self.price * self.quantity + other.price * other.quantity
+
     @classmethod
     def new_product(cls, product_dict: dict):
         """ Класс-метод возвращает созданный объект класса Product"""
@@ -19,10 +27,12 @@ class Product:
 
     @property
     def price(self):
+        """ Метод-геттер возвращает цену продукта"""
         return self.__price
 
     @price.setter
     def price(self, new_price: float):
+        """ Метод-сеттер изменяет цену продукта"""
         if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
         else:
@@ -42,9 +52,12 @@ if __name__ == "__main__":
     print(new_product.description)
     print(new_product.price)
     print(new_product.quantity)
+    print(new_product)
 
     product_item = Product('Test', 'Test', 1000, 10)
     print(product_item.price)
 
     product_item.price = 800
     print(product_item.price)
+
+    print(new_product + product_item)
