@@ -41,3 +41,13 @@ def data_test():
     ]
   }
 ]
+
+
+@pytest.fixture
+def product_test():
+    return {
+        'name': 'New Product',
+        'description': 'New Description',
+        'price': 500,
+        'quantity': 5
+    }
