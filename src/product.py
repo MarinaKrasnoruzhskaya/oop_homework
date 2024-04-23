@@ -18,7 +18,9 @@ class Product:
 
     def __add__(self, other):
         """ Метод сложения общей стоимости двух продуктов"""
-        return self.price * self.quantity + other.price * other.quantity
+        if type(other) is type(self):
+            return self.price * self.quantity + other.price * other.quantity
+        raise TypeError
 
     @classmethod
     def new_product(cls, product_dict: dict):

@@ -42,9 +42,12 @@ class Category:
         return products_str
 
     @products.setter
-    def products(self, new_product: Product):
+    def products(self, new_product):
         """ Метод-сеттер для добавления товаров в категорию"""
-        self.__products.append(new_product)
+        if isinstance(new_product, Product):
+            self.__products.append(new_product)
+        else:
+            raise TypeError
         Category.count_products += 1
 
     def cost_of_all_goods(self):
@@ -77,3 +80,60 @@ if __name__ == "__main__":
     )
 
     print(category_1 + category_2)
+
+# 15.1
+
+    data = [
+        {
+            "name": "Смартфоны",
+            "description": "Смартфоны, как средство не только коммуникации, но и получение дополнительных функций для удобства жизни",
+            "products": [
+                {
+                    "name": "Samsung Galaxy C23 Ultra",
+                    "description": "256GB, Серый цвет, 200MP камера",
+                    "price": 180000.0,
+                    "quantity": 5
+                },
+                {
+                    "name": "Iphone 15",
+                    "description": "512GB, Gray space",
+                    "price": 210000.0,
+                    "quantity": 8
+                },
+                {
+                    "name": "Xiaomi Redmi Note 11",
+                    "description": "1024GB, Синий",
+                    "price": 31000.0,
+                    "quantity": 14
+                }
+            ]
+        },
+        {
+            "name": "Телевизоры",
+            "description": "Современный телевизор, который позволяет наслаждаться просмотром, станет вашим другом и помощником",
+            "products": [
+                {
+                    "name": "55 QLED 4K",
+                    "description": "Фоновая подсветка",
+                    "price": 123000.0,
+                    "quantity": 7
+                }
+            ]
+        }
+    ]
+    categories = []
+    for category in data:
+        products = []
+        for product in category['products']:
+            products.append(Product.new_product(product))
+        category['products'] = products
+        categories.append(Category(**category))
+
+    try:
+        categories[0].products = 1
+    except TypeError:
+        print('Можно добавить только объекты класса Product или его наследников (Smartphone/LawnGrass)')
+
+    product_item = Product('Test', 'Test', 1000, 10)
+    categories[0].products = product_item
+    print(product_item.name in categories[0].products)

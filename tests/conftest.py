@@ -1,7 +1,9 @@
 import pytest
 
 from src.category import Category
+from src.lawn_grass import LawnGrass
 from src.product import Product
+from src.smartphone import Smartphone
 
 
 @pytest.fixture
@@ -58,3 +60,22 @@ def product_test():
         'price': 500,
         'quantity': 5
     }
+
+
+@pytest.fixture
+def first_smartphone():
+    return Smartphone('Test1', 'Test1', 2000, 10, 1.5, 'Xiaomi', 10000, 'red')
+
+
+@pytest.fixture
+def second_smartphone():
+    return Smartphone('Test2', 'Test2', 3000, 15, 1.5, 'Xiaomi', 10000, 'red')
+
+@pytest.fixture
+def first_lawn_grass():
+    return LawnGrass('Test1', 'Test1', 3000, 10, 'Canada', '1 year', 'light green')
+
+
+@pytest.fixture
+def second_lawn_grass():
+    return LawnGrass('Test2', 'Test2', 2000, 5, 'Canada', '1 year', 'light green')

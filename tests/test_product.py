@@ -1,3 +1,5 @@
+import pytest
+
 from src.product import Product
 
 
@@ -33,3 +35,11 @@ def test_product_str(first_product):
 
 def test_product_add(first_product, second_product):
     assert first_product + second_product == 871_000
+
+
+def test_product_add_error(first_product, first_smartphone, first_lawn_grass):
+    with pytest.raises(TypeError):
+        result = first_product + first_smartphone
+        result2 = first_product + first_lawn_grass
+        result3 = first_smartphone + first_lawn_grass
+        result4 = first_product + 1

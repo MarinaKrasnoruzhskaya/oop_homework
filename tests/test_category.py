@@ -1,3 +1,6 @@
+import pytest
+
+
 def test_category_init(first_category, second_category):
     assert first_category.name == "Телевизоры"
     assert first_category.description == "Современный телевизор"
@@ -14,10 +17,14 @@ def test_category_products_property(first_category):
     assert first_category.products == "55 QLED 4K, 123000.0 руб. Остаток: 7 шт.\n"
 
 
-def test_category_products_list_setter(first_category, first_product):
+def test_category_products_list_setter(first_category, first_product, first_smartphone, first_lawn_grass):
     assert len(first_category.products_list) == 1
     first_category.products = first_product
     assert len(first_category.products_list) == 2
+    first_category.products = first_smartphone
+    assert len(first_category.products_list) == 3
+    first_category.products = first_lawn_grass
+    assert len(first_category.products_list) == 4
 
 
 def test_category_str(first_category, second_category):
@@ -31,3 +38,8 @@ def test_category_cost_of_all_goods(second_category):
 
 def test_category_add(first_category, second_category):
     assert first_category + second_category == 3_441_000.0
+
+
+def test_category__products_list_setter_error(first_category):
+    with pytest.raises(TypeError):
+        first_category.products = 1
