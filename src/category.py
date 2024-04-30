@@ -81,8 +81,6 @@ if __name__ == "__main__":
 
     print(category_1 + category_2)
 
-# 15.1
-
     data = [
         {
             "name": "Смартфоны",
@@ -129,6 +127,7 @@ if __name__ == "__main__":
         category['products'] = products
         categories.append(Category(**category))
 
+# 15.1
     try:
         categories[0].products = 1
     except TypeError:
