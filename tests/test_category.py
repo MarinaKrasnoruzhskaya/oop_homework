@@ -1,5 +1,7 @@
 import pytest
 
+from src.product import Product
+
 
 def test_category_init(first_category, second_category):
     assert first_category.name == "Телевизоры"
@@ -40,6 +42,30 @@ def test_category_add(first_category, second_category):
     assert first_category + second_category == 3_441_000.0
 
 
-def test_category__products_list_setter_error(first_category):
+def test_category_products_list_setter_error(first_category):
     with pytest.raises(TypeError):
         first_category.products = 1
+
+
+def test_category_middle_price(second_category, category_without_products):
+    assert second_category.middle_price() == 195_000.0
+    assert category_without_products.middle_price() == 0
+
+
+def test_custom_exception(capsys, first_category):
+    assert len(first_category.products_list) == 1
+
+    broken_product = Product('Test', 'Test', 1000, -5)
+    first_category.products = broken_product
+    message = capsys.readouterr()
+
+    assert message.out.strip().split('\n')[-2] == "Нельзя добавить товар с отрицательным количеством"
+    assert message.out.strip().split('\n')[-1] == "Обработка продукта завершена"
+
+    broken_product = Product('Test', 'Test', 1000, 5)
+    first_category.products = broken_product
+    message = capsys.readouterr()
+
+    assert message.out.strip().split('\n')[-2] == "Продукт добавлен"
+    assert message.out.strip().split('\n')[-1] == "Обработка продукта завершена"
+    assert len(first_category.products_list) == 2

@@ -14,7 +14,10 @@ class Product(BaseProduct, PrintMixin):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity:
+            self.quantity = quantity
+        else:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         super().__init__()
 
     def __str__(self):
@@ -68,3 +71,8 @@ if __name__ == "__main__":
     print(product_item.price)
 
     print(new_product + product_item)
+
+    try:
+        broken_product = Product('Test', 'Test', 1000, 0)
+    except ValueError as e:
+        print(str(e) == "Товар с нулевым количеством не может быть добавлен")

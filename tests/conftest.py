@@ -79,3 +79,11 @@ def first_lawn_grass():
 @pytest.fixture
 def second_lawn_grass():
     return LawnGrass('Test2', 'Test2', 2000, 5, 'Canada', '1 year', 'light green')
+
+
+@pytest.fixture
+def category_without_products():
+    return Category(
+        "Телевизоры",
+        "Современный телевизор",
+    )
